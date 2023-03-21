@@ -3,29 +3,35 @@ all: bin/test bin/objetTest bin/bulletTest
 clean:
 	rm obj/* bin/*
 
-bin/test: obj/mainTest.o obj/Function_Global.o
-	g++ obj/mainTest.o obj/Function_Global.o -o bin/test -lSDL2 -lSDL2_image
-
-bin/objetTest: obj/objetTest.o obj/Base_Objet.o obj/Function_Global.o
-	g++ obj/objetTest.o obj/Base_Objet.o obj/Function_Global.o -o bin/objetTest -lSDL2 -lSDL2_image
-
-bin/bulletTest: obj/bulletTest.o obj/Base_Objet.o obj/Bullet.o obj/Function_Global.o
-	g++ obj/bulletTest.o obj/Base_Objet.o obj/Bullet.o obj/Function_Global.o -o bin/bulletTest -lSDL2 -lSDL2_image
-
-obj/objetTest.o: src/objetTest.cpp src/Base_Objet.h
-	g++ -Wall -c src/objetTest.cpp -g -o obj/objetTest.o -lSDL2 -lSDL2_image
-
-obj/bulletTest.o: src/bulletTest.cpp src/Bullet.h
-	g++ -Wall -c src/bulletTest.cpp -g -o obj/bulletTest.o -lSDL2 -lSDL2_image
-
-obj/mainTest.o: src/mainTest.cpp src/Function_Global.h
-	g++ -Wall -c src/mainTest.cpp -o obj/mainTest.o -lSDL2 -lSDL2_image
-
-obj/Bullet.o: src/Bullet.h src/Bullet.cpp src/Base_Objet.h
+Bullet.o: src/Bullet.h src/Bullet.cpp src/Base.h src/Base.h
 	g++ -Wall -c src/Bullet.cpp -o obj/Bullet.o -lSDL2 -lSDL2_image
 
-obj/Base_Objet.o: src/Base_Objet.h src/Base_Objet.cpp src/Function_Global.h
-	g++ -Wall -c src/Base_Objet.cpp -o obj/Base_Objet.o -lSDL2 -lSDL2_image
+Base.o: src/Base.h src/Base.cpp src/Global.h
+	g++ -Wall -c src/Base.cpp -o obj/Base.o -lSDL2 -lSDL2_image
 
-obj/Function_Global.o: src/Function_Global.h src/Function_Global.cpp
-	g++ -Wall -c src/Function_Global.cpp -o obj/Function_Global.o -lSDL2 -lSDL2_image
+Global.o: src/Global.h src/Global.cpp
+	g++ -Wall -c src/Global.cpp -o obj/Global.o -lSDL2 -lSDL2_image
+	
+Player.o: src/Player.h src/Player.cpp src/Global.h src/Bullet.h
+	g++ -Wall -c src/Player.cpp -o obj/Player.o -lSDL2 -lSDL2_image
+	
+Chicken.o: src/Chicken.h src/Chicken.cpp src/Explode.h src/Base.h src/Global.h src/Bullet.h
+	g++ -Wall -c src/Chicken.cpp -o obj/Chicken.o -lSDL2 -lSDL2_image
+	
+Gift.o: src/Gift.h src/Gift.cpp src/Global.h src/Base.h
+	g++ -Wall -c src/Gift.cpp -o obj/Gift.o -lSDL2 -lSDL2_image	
+
+Boss.o: src/Boss.h src/Boss.cpp src/Global.h src/Base.h src/Bullet.h src/Explode.h
+	g++ -Wall -c src/Boss.cpp -o obj/Boss.o -lSDL2 -lSDL2_image	
+
+Text.o: src/Text.h src/Text.cpp src/Global.h src/Base.h
+	g++ -Wall -c src/Text.cpp -o obj/Text.o -lSDL2 -lSDL2_image	
+	
+Explode.o: src/Explode.h src/Explode.cpp src/Global.h src/Base.h
+	g++ -Wall -c src/Explode.cpp -o obj/Explode.o -lSDL2 -lSDL2_image
+		
+Control.o: src/Control.h src/Control.cpp src/Global.h src/Base.h src/Bullet.h src/Boss.h src/Chicken.h src/Explode.h src/Gift.h src/Text.h src/Player.h
+	g++ -Wall -c src/Control.cpp -o obj/Control.o -lSDL2 -lSDL2_image
+			
+Main.o: src/Main.h src/Main.cpp src/Global.h src/Base.h
+	g++ -Wall -c src/Main.cpp -o obj/Main.o -lSDL2 -lSDL2_image
